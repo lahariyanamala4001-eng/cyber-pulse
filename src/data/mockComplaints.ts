@@ -1,0 +1,163 @@
+import type { Complaint } from '../types/complaint';
+
+export const mockComplaints: Complaint[] = [
+  {
+    id: 'CCP-2026-104382',
+    type: 'UPI / Payment Fraud',
+    date: '2026-08-28',
+    incidentDate: '2026-08-27',
+    description:
+      'I received a call from someone claiming to be from my bank. They asked me to verify my UPI PIN to confirm a transaction. After sharing the PIN, ₹45,000 was debited from my account without my consent.',
+    amountLost: 45000,
+    transactionId: 'UPI-2026082712340089',
+    platform: 'PhonePe',
+    status: 'Under Investigation',
+    lastUpdated: '2026-09-04',
+    evidenceCount: 3,
+    latestUpdate:
+      'Your complaint has been assigned for further investigation. You will be notified when the status changes. Our team is actively working on this case.',
+    timeline: [
+      {
+        stage: 'Submitted',
+        date: '2026-08-28',
+        note: 'Complaint successfully submitted.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Initial Review',
+        date: '2026-08-29',
+        note: 'Complaint reviewed by the intake team.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Assigned to Authority',
+        date: '2026-09-01',
+        note: 'Assigned to Cyber Crime Cell, Hyderabad.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Under Investigation',
+        date: '2026-09-04',
+        note: 'Active investigation underway.',
+        completed: false,
+        active: true,
+      },
+      {
+        stage: 'Resolution',
+        date: '',
+        note: 'Pending.',
+        completed: false,
+        active: false,
+      },
+    ],
+  },
+  {
+    id: 'CCP-2026-103271',
+    type: 'Phishing / Fake Link',
+    date: '2026-08-15',
+    incidentDate: '2026-08-14',
+    description:
+      'I received an SMS with a link claiming to be from my bank asking me to update my KYC. I clicked the link and entered my details. Later I found my account was accessed.',
+    amountLost: 12000,
+    transactionId: '',
+    platform: 'SMS',
+    status: 'Resolved',
+    lastUpdated: '2026-09-02',
+    evidenceCount: 2,
+    latestUpdate:
+      'Your complaint has been resolved. The fraudulent link has been taken down and a report has been filed. Please monitor your account activity.',
+    timeline: [
+      {
+        stage: 'Submitted',
+        date: '2026-08-15',
+        note: 'Complaint submitted.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Initial Review',
+        date: '2026-08-16',
+        note: 'Reviewed and confirmed as phishing.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Assigned to Authority',
+        date: '2026-08-18',
+        note: 'Assigned to CERT-In.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Under Investigation',
+        date: '2026-08-20',
+        note: 'Investigation completed.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Resolution',
+        date: '2026-09-02',
+        note: 'Case resolved. Fraudulent domain blocked.',
+        completed: true,
+        active: false,
+      },
+    ],
+  },
+  {
+    id: 'CCP-2026-101942',
+    type: 'Social Media Fraud',
+    date: '2026-07-30',
+    incidentDate: '2026-07-29',
+    description:
+      'My Instagram account was hacked and someone posted fraudulent investment offers. They also messaged my followers asking for money. I have lost access to the account.',
+    amountLost: 0,
+    transactionId: '',
+    platform: 'Instagram',
+    status: 'Under Review',
+    lastUpdated: '2026-08-02',
+    evidenceCount: 4,
+    latestUpdate:
+      'Your complaint is under review. Our team is examining the evidence provided. We will update you shortly.',
+    timeline: [
+      {
+        stage: 'Submitted',
+        date: '2026-07-30',
+        note: 'Complaint submitted.',
+        completed: true,
+        active: false,
+      },
+      {
+        stage: 'Initial Review',
+        date: '2026-08-02',
+        note: 'Under initial review.',
+        completed: false,
+        active: true,
+      },
+      {
+        stage: 'Assigned to Authority',
+        date: '',
+        note: 'Pending.',
+        completed: false,
+        active: false,
+      },
+      {
+        stage: 'Under Investigation',
+        date: '',
+        note: 'Pending.',
+        completed: false,
+        active: false,
+      },
+      {
+        stage: 'Resolution',
+        date: '',
+        note: 'Pending.',
+        completed: false,
+        active: false,
+      },
+    ],
+  },
+];
