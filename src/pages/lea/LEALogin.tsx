@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Eye, EyeOff, LogIn, AlertCircle, Info, ShieldCheck } from 'lucide-react';
 import { useLEAAuth } from '../../context/LEAAuthContext';
+import { CITIZEN_PORTAL_URL, isLEAPortal } from '../../config/portal';
 
 export default function LEALogin() {
   const { login, loading, error, clearError } = useLEAAuth();
@@ -113,11 +114,20 @@ export default function LEALogin() {
               </p>
             </div>
 
-            <div className="mt-6 text-center">
-              <Link to="/" className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
-                ← Back to Citizen Portal
-              </Link>
-            </div>
+            {/* Portal navigation */}
+            {CITIZEN_PORTAL_URL !== '/' || !isLEAPortal ? (
+              <div className="mt-6 text-center">
+                {CITIZEN_PORTAL_URL.startsWith('http') ? (
+                  <a href={CITIZEN_PORTAL_URL} className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+                    ← Back to Citizen Portal
+                  </a>
+                ) : (
+                  <Link to={CITIZEN_PORTAL_URL} className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+                    ← Back to Citizen Portal
+                  </Link>
+                )}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

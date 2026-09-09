@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Shield, Phone, Mail, ExternalLink, Heart } from 'lucide-react';
+import { BANK_PORTAL_URL, LEA_PORTAL_URL } from '../config/portal';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -96,14 +97,26 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Authority Portals</h3>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/lea/login" className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
-                  <Shield size={14} /> LEA Portal
-                </Link>
+                {LEA_PORTAL_URL.startsWith('http') ? (
+                  <a href={LEA_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
+                    <Shield size={14} /> LEA Portal <ExternalLink size={11} className="opacity-60" />
+                  </a>
+                ) : (
+                  <Link to={LEA_PORTAL_URL} className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
+                    <Shield size={14} /> LEA Portal
+                  </Link>
+                )}
               </li>
               <li>
-                <Link to="/bank/login" className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
-                  <ExternalLink size={14} /> Bank Authority Portal
-                </Link>
+                {BANK_PORTAL_URL.startsWith('http') ? (
+                  <a href={BANK_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
+                    <Shield size={14} /> Bank Authority Portal <ExternalLink size={11} className="opacity-60" />
+                  </a>
+                ) : (
+                  <Link to={BANK_PORTAL_URL} className="text-sm transition-colors hover:text-white flex items-center gap-2" style={{ color: '#64748b' }}>
+                    <ExternalLink size={14} /> Bank Authority Portal
+                  </Link>
+                )}
               </li>
             </ul>
             <div className="mt-6 px-3 py-2 rounded-lg" style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.15)' }}>

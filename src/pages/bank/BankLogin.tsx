@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Eye, EyeOff, LogIn, AlertCircle, Info, Building2 } from 'lucide-react';
 import { useBankAuth } from '../../context/BankAuthContext';
+import { CITIZEN_PORTAL_URL, isBankPortal } from '../../config/portal';
 
 export default function BankLogin() {
   const { login, loading, error, clearError } = useBankAuth();
@@ -111,11 +112,20 @@ export default function BankLogin() {
               </p>
             </div>
 
-            <div className="mt-6 text-center">
-              <Link to="/" className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
-                ← Back to Citizen Portal
-              </Link>
-            </div>
+            {/* Portal navigation */}
+            {CITIZEN_PORTAL_URL !== '/' || !isBankPortal ? (
+              <div className="mt-6 text-center">
+                {CITIZEN_PORTAL_URL.startsWith('http') ? (
+                  <a href={CITIZEN_PORTAL_URL} className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+                    ← Back to Citizen Portal
+                  </a>
+                ) : (
+                  <Link to={CITIZEN_PORTAL_URL} className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+                    ← Back to Citizen Portal
+                  </Link>
+                )}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

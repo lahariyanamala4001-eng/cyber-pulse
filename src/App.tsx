@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { BankAuthProvider, useBankAuth } from './context/BankAuthContext';
 import { LEAAuthProvider, useLEAAuth } from './context/LEAAuthContext';
+import { isBankPortal, isLEAPortal, isCitizenPortal } from './config/portal';
 import CitizenLayout from './layouts/CitizenLayout';
 import BankLayout from './layouts/BankLayout';
 import LEALayout from './layouts/LEALayout';
@@ -66,7 +68,94 @@ function LEAProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function BankPortalRoutes() {
+  return (
+    <Routes>
+      <Route path="/bank/login" element={<BankLogin />} />
+      <Route path="/login" element={<Navigate to="/bank/login" replace />} />
+      <Route path="/" element={<Navigate to="/bank/dashboard" replace />} />
+
+      {/* Bank Authority Portal */}
+      <Route element={<BankProtectedRoute><BankLayout /></BankProtectedRoute>}>
+        <Route path="/bank/dashboard" element={<BankDashboard />} />
+        <Route path="/bank/ml-pipeline" element={<MLPipelineRunner />} />
+        <Route path="/bank/alerts" element={<FraudAlertCentre />} />
+        <Route path="/bank/transactions" element={<TransactionInvestigation />} />
+        <Route path="/bank/transactions/:id" element={<TransactionInvestigation />} />
+        <Route path="/bank/trace" element={<FraudToCashoutTrace />} />
+        <Route path="/bank/cashout-predictions" element={<CashoutPrediction />} />
+        <Route path="/bank/risk-ml" element={<RiskMLView />} />
+        <Route path="/bank/atm-map" element={<PredictiveATMMapPage />} />
+        <Route path="/bank/cases" element={<FraudCases />} />
+        <Route path="/bank/cases/:id" element={<FraudCases />} />
+        <Route path="/bank/lea-coordination" element={<LEACoordination />} />
+        <Route path="/bank/analytics" element={<BankAnalytics />} />
+        <Route path="/bank/audit-logs" element={<BankAuditLogs />} />
+        <Route path="/bank/notifications" element={<BankNotifications />} />
+        <Route path="/bank/profile" element={<BankProfile />} />
+
+        {/* Root aliases for standalone bank portal */}
+        <Route path="/dashboard" element={<BankDashboard />} />
+        <Route path="/ml-pipeline" element={<MLPipelineRunner />} />
+        <Route path="/alerts" element={<FraudAlertCentre />} />
+        <Route path="/transactions" element={<TransactionInvestigation />} />
+        <Route path="/transactions/:id" element={<TransactionInvestigation />} />
+        <Route path="/trace" element={<FraudToCashoutTrace />} />
+        <Route path="/cashout-predictions" element={<CashoutPrediction />} />
+        <Route path="/risk-ml" element={<RiskMLView />} />
+        <Route path="/atm-map" element={<PredictiveATMMapPage />} />
+        <Route path="/cases" element={<FraudCases />} />
+        <Route path="/cases/:id" element={<FraudCases />} />
+        <Route path="/lea-coordination" element={<LEACoordination />} />
+        <Route path="/analytics" element={<BankAnalytics />} />
+        <Route path="/audit-logs" element={<BankAuditLogs />} />
+        <Route path="/notifications" element={<BankNotifications />} />
+        <Route path="/profile" element={<BankProfile />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/bank/dashboard" replace />} />
+    </Routes>
+  );
+}
+
+function LEAPortalRoutes() {
+  return (
+    <Routes>
+      <Route path="/lea/login" element={<LEALogin />} />
+      <Route path="/login" element={<Navigate to="/lea/login" replace />} />
+      <Route path="/" element={<Navigate to="/lea/dashboard" replace />} />
+
+      {/* LEA Portal */}
+      <Route element={<LEAProtectedRoute><LEALayout /></LEAProtectedRoute>}>
+        <Route path="/lea/dashboard" element={<LEADashboard />} />
+        <Route path="/lea/14c-intelligence" element={<LEA14CIntelligence />} />
+        <Route path="/lea/complaints" element={<LEAComplaints />} />
+        <Route path="/lea/complaints/:id" element={<LEACaseDetail />} />
+        <Route path="/lea/previous-cases" element={<LEAPreviousCases />} />
+        <Route path="/lea/map" element={<LEACybercrimeMap />} />
+        <Route path="/lea/bank-coordination" element={<LEABankCoordination />} />
+        <Route path="/lea/profile" element={<LEAProfile />} />
+
+        {/* Root aliases for standalone LEA portal */}
+        <Route path="/dashboard" element={<LEADashboard />} />
+        <Route path="/14c-intelligence" element={<LEA14CIntelligence />} />
+        <Route path="/complaints" element={<LEAComplaints />} />
+        <Route path="/complaints/:id" element={<LEACaseDetail />} />
+        <Route path="/previous-cases" element={<LEAPreviousCases />} />
+        <Route path="/map" element={<LEACybercrimeMap />} />
+        <Route path="/bank-coordination" element={<LEABankCoordination />} />
+        <Route path="/profile" element={<LEAProfile />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/lea/dashboard" replace />} />
+    </Routes>
+  );
+}
+
 function AppRoutes() {
+  if (isBankPortal) return <BankPortalRoutes />;
+  if (isLEAPortal) return <LEAPortalRoutes />;
+
   return (
     <Routes>
       {/* ─── Citizen Auth ─────────────────────────────────── */}
@@ -148,6 +237,16 @@ function AppRoutes() {
 }
 
 export default function App() {
+  useEffect(() => {
+    if (isBankPortal) {
+      document.title = 'CyberPulse — Bank Authority Portal';
+    } else if (isLEAPortal) {
+      document.title = 'CyberPulse — Law Enforcement Portal';
+    } else if (isCitizenPortal) {
+      document.title = 'CyberPulse — Citizen Cybercrime Portal';
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>

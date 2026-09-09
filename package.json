@@ -6,7 +6,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "dev:citizen": "vite --mode citizen",
+    "dev:bank": "vite --mode bank",
+    "dev:lea": "vite --mode lea",
     "build": "tsc -b && vite build",
+    "build:citizen": "vite build --mode citizen",
+    "build:bank": "vite build --mode bank",
+    "build:lea": "vite build --mode lea",
     "vercel-build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
