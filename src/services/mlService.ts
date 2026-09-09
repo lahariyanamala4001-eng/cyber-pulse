@@ -35,6 +35,7 @@ import type {
   FullPipelineExecutionResult,
 } from '../types/bank';
 import { STORED_ML_DATASET, type StoredDatasetRecord } from '../data/bank/storedMLDataset';
+import { mockCashoutPredictions } from '../data/bank/mockCashoutPredictions';
 
 export { STORED_ML_DATASET, type StoredDatasetRecord };
 
@@ -520,7 +521,6 @@ export async function calculateFinalRisk(
 export async function predictCashout(
   alertId: string
 ): Promise<CashoutPrediction | null> {
-  const { mockCashoutPredictions } = await import('../data/bank/mockCashoutPredictions');
   return mockCashoutPredictions.find(p => p.alertId === alertId) || null;
 }
 

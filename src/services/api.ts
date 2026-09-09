@@ -84,6 +84,13 @@ export const authService = {
   },
 };
 
+import { mockComplaints } from '../data/mockComplaints';
+import { mockAlerts } from '../data/mockAlerts';
+import { mockSafetyLocations } from '../data/mockSafetyLocations';
+
+// Suppress unused BASE_URL warning for now
+void BASE_URL;
+
 // ─── Complaints ─────────────────────────────────────────────────────────────
 
 export const complaintsService = {
@@ -110,7 +117,6 @@ export const complaintsService = {
    */
   getAll: async (_token: string) => {
     await new Promise((r) => setTimeout(r, 500));
-    const { mockComplaints } = await import('../data/mockComplaints');
     return mockComplaints;
   },
 
@@ -119,7 +125,6 @@ export const complaintsService = {
    */
   getById: async (id: string, _token: string) => {
     await new Promise((r) => setTimeout(r, 600));
-    const { mockComplaints } = await import('../data/mockComplaints');
     return mockComplaints.find((c) => c.id === id) || null;
   },
 };
@@ -132,7 +137,6 @@ export const alertsService = {
    */
   getAll: async () => {
     await new Promise((r) => setTimeout(r, 400));
-    const { mockAlerts } = await import('../data/mockAlerts');
     return mockAlerts;
   },
 };
@@ -145,10 +149,7 @@ export const safetyLocationsService = {
    */
   getAll: async () => {
     await new Promise((r) => setTimeout(r, 300));
-    const { mockSafetyLocations } = await import('../data/mockSafetyLocations');
     return mockSafetyLocations;
   },
 };
 
-// Suppress unused BASE_URL warning for now
-void BASE_URL;

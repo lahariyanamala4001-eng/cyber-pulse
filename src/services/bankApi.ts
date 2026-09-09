@@ -3,6 +3,11 @@
 // Follows the same pattern as the citizen api.ts.
 
 import type { BankUser } from '../types/bank';
+import { mockTransactions } from '../data/bank/mockTransactions';
+import { mockFraudAlerts } from '../data/bank/mockFraudAlerts';
+import { mockFraudCases } from '../data/bank/mockFraudCases';
+import { mockLEACoordinations, mockBankNotifications } from '../data/bank/mockLEAData';
+import { mockAuditLogs } from '../data/bank/mockAuditLogs';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 void BASE_URL;
@@ -57,19 +62,16 @@ export const bankAuthService = {
 export const transactionService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockTransactions } = await import('../data/bank/mockTransactions');
     return mockTransactions;
   },
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockTransactions } = await import('../data/bank/mockTransactions');
     return mockTransactions.find(t => t.id === id) || null;
   },
 
   search: async (query: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockTransactions } = await import('../data/bank/mockTransactions');
     const q = query.toLowerCase();
     return mockTransactions.filter(t =>
       t.id.toLowerCase().includes(q) ||
@@ -85,13 +87,11 @@ export const transactionService = {
 export const fraudAlertService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockFraudAlerts } = await import('../data/bank/mockFraudAlerts');
     return mockFraudAlerts;
   },
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockFraudAlerts } = await import('../data/bank/mockFraudAlerts');
     return mockFraudAlerts.find(a => a.id === id) || null;
   },
 
@@ -111,13 +111,11 @@ export const fraudAlertService = {
 export const fraudCaseService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockFraudCases } = await import('../data/bank/mockFraudCases');
     return mockFraudCases;
   },
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockFraudCases } = await import('../data/bank/mockFraudCases');
     return mockFraudCases.find(c => c.id === id) || null;
   },
 
@@ -137,7 +135,6 @@ export const fraudCaseService = {
 export const leaCoordinationService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockLEACoordinations } = await import('../data/bank/mockLEAData');
     return mockLEACoordinations;
   },
 
@@ -157,7 +154,6 @@ export const leaCoordinationService = {
 export const auditService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockAuditLogs } = await import('../data/bank/mockAuditLogs');
     return mockAuditLogs;
   },
 
@@ -216,7 +212,6 @@ export const analyticsService = {
 export const bankNotificationService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 200));
-    const { mockBankNotifications } = await import('../data/bank/mockLEAData');
     return mockBankNotifications;
   },
 

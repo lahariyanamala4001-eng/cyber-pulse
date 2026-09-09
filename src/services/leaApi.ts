@@ -4,6 +4,12 @@
 // Replace BASE_URL with your FastAPI LEA backend URL when integrating.
 
 import type { LEAUser } from '../types/lea';
+import { mockLEAComplaints } from '../data/lea/mockLEAComplaints';
+import { mockLEACases } from '../data/lea/mockLEACases';
+import { mockBankAlertsLEA } from '../data/lea/mockBankAlertsLEA';
+import { mockPreviousCases } from '../data/lea/mockPreviousCases';
+import { mockHotspots } from '../data/lea/mockHotspots';
+import { mockLEANotifications } from '../data/lea/mockLEANotifications';
 
 const BASE_URL = import.meta.env.VITE_LEA_API_URL || 'http://localhost:8001/api';
 void BASE_URL;
@@ -73,10 +79,6 @@ export const leaAuthService = {
 export const leaDashboardService = {
   getSummary: async () => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockLEAComplaints } = await import('../data/lea/mockLEAComplaints');
-    const { mockLEACases } = await import('../data/lea/mockLEACases');
-    const { mockBankAlertsLEA } = await import('../data/lea/mockBankAlertsLEA');
-
     return {
       newComplaints: mockLEAComplaints.filter(c => c.status === 'New').length,
       activeCases: mockLEACases.filter(c => !['Resolved', 'Closed'].includes(c.status)).length,
@@ -99,7 +101,6 @@ export const leaDashboardService = {
 
   getRecentCases: async () => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockLEACases } = await import('../data/lea/mockLEACases');
     return mockLEACases.slice(0, 5);
   },
 };
@@ -109,13 +110,11 @@ export const leaDashboardService = {
 export const leaComplaintService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockLEAComplaints } = await import('../data/lea/mockLEAComplaints');
     return mockLEAComplaints;
   },
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockLEAComplaints } = await import('../data/lea/mockLEAComplaints');
     return mockLEAComplaints.find(c => c.id === id) || null;
   },
 
@@ -135,13 +134,11 @@ export const leaComplaintService = {
 export const leaCaseService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockLEACases } = await import('../data/lea/mockLEACases');
     return mockLEACases;
   },
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockLEACases } = await import('../data/lea/mockLEACases');
     return mockLEACases.find(c => c.id === id) || null;
   },
 
@@ -152,7 +149,6 @@ export const leaCaseService = {
 
   getTimeline: async (caseId: string) => {
     await new Promise(r => setTimeout(r, 200));
-    const { mockLEACases } = await import('../data/lea/mockLEACases');
     const c = mockLEACases.find(c => c.id === caseId);
     return c?.timeline || [];
   },
@@ -168,7 +164,6 @@ export const leaCaseService = {
 export const leaPreviousCaseService = {
   search: async (query?: string) => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockPreviousCases } = await import('../data/lea/mockPreviousCases');
     if (!query) return mockPreviousCases;
     const q = query.toLowerCase();
     return mockPreviousCases.filter(c =>
@@ -182,7 +177,6 @@ export const leaPreviousCaseService = {
 
   getById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockPreviousCases } = await import('../data/lea/mockPreviousCases');
     return mockPreviousCases.find(c => c.id === id) || null;
   },
 };
@@ -192,7 +186,6 @@ export const leaPreviousCaseService = {
 export const leaMapService = {
   getHotspots: async () => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockHotspots } = await import('../data/lea/mockHotspots');
     return mockHotspots;
   },
 };
@@ -202,13 +195,11 @@ export const leaMapService = {
 export const leaBankCoordService = {
   getAlerts: async () => {
     await new Promise(r => setTimeout(r, 400));
-    const { mockBankAlertsLEA } = await import('../data/lea/mockBankAlertsLEA');
     return mockBankAlertsLEA;
   },
 
   getAlertById: async (id: string) => {
     await new Promise(r => setTimeout(r, 300));
-    const { mockBankAlertsLEA } = await import('../data/lea/mockBankAlertsLEA');
     return mockBankAlertsLEA.find(a => a.id === id) || null;
   },
 
@@ -228,7 +219,6 @@ export const leaBankCoordService = {
 export const leaNotificationService = {
   getAll: async () => {
     await new Promise(r => setTimeout(r, 200));
-    const { mockLEANotifications } = await import('../data/lea/mockLEANotifications');
     return mockLEANotifications;
   },
 
